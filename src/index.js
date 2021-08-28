@@ -1,12 +1,13 @@
 const express = require('express');
 const app = express();
+const port = process.env.PORT || 8080;
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-server.listen(8080)
+server.listen(port)
 const path = require('path');
 const cors = require('cors');
 const handlebars = require('express-handlebars');
-const port = process.env.PORT || 8080;
+
 const ChatController = require('./app/controllers/ChatController')
 
 app.use('/api', cors())
