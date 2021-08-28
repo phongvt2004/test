@@ -1,0 +1,54 @@
+<h3>Nhom của tôi</h3>
+    <table class='table mt-4'>
+        <thead>
+            <tr>
+                <th scope='col'>
+                    Tên nhom
+                </th>
+                <th scope='col'>Lop
+                </th>
+                <th scope='col' colspan='2'>
+                    Nguoi tạo
+                </th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            {{#each groups}}
+                <tr>
+                    <td>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="groupId" value="{{this._id}}">
+                        </div>
+                    </td>
+                    <td><a href="/group/chat?groupId={{this._id}}">
+                        {{this.name}}
+                    </a>
+                    </td>
+                    <td>{{this.class}}</td>
+                    <td>{{this.leader}}</td>
+                    <td>
+                        <a
+                            href='/api/group/join/{{this._id}}'
+                            class='btn btn-link'
+                        >Join</a>
+                        <a
+                            href=''
+                            class='btn btn-link'
+                            data-bs-toggle='modal'
+                            data-bs-id='{{this._id}}'
+                            data-bs-target='#delete-course-modal'
+                        >Xoá</a>
+                    </td>
+                </tr>
+            {{else}}
+            <tr>
+                <td colspan='5' class='text-center'>
+                    <a href="/group/create">Hay tao them nhom</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <a href="/me/group">Nhom cua toi</a>

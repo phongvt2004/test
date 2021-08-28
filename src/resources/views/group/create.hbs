@@ -1,0 +1,15 @@
+<div class='mt-4'>
+    <h3>Tao nhom</h3>
+    <form method='POST' action='/api/group/create'>
+        <div class='mb-3'>
+            <label for='name' class='form-label'>Tên nhom</label>
+            <input type='text' class='form-control' id='name' name='name' />
+        </div>
+        <div class='mb-3'>
+            <label for='name' class='form-label'>Lop</label>
+            <input type='text' class='form-control' id='name' name='class' />
+        </div>
+        <input type="text" name="leader" hidden value="{{user.username}}">
+        <button type='submit' class='btn btn-primary'>Submit</button>
+    </form>
+</div>

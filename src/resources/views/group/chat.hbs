@@ -1,0 +1,32 @@
+
+        <ul id="messages">
+            {{#each chats}}
+                <li>{{this.sender}}: {{this.message}}</li>
+            {{/each}}
+        </ul>
+        <form action="">
+            <input type="text" id="enter-msg" autocomplete="off"/>
+            <input type="text" hidden value="{{groupId}}" id="groupId"/>
+            <input type="text" hidden value="{{username}}" id="username"/>
+            <button>Send</button>
+        </form>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script>
+            var socket = io('/chat');
+            socket.emit('join', $('#groupId').val())
+            $('form').submit(function (e) {
+                e.preventDefault(); // prevents page reloading
+                socket.emit('inputChatMessage', {
+                    message: $('#enter-msg').val(),
+                    sender: $('#username').val(),
+                    groupId: $('#groupId').val(),
+                });
+                $('#enter-msg').val('');
+                return false;
+            });
+            socket.on('outputChatMessage', function (chat) {
+                console.log("msg: ", chat);
+                $('#messages').append($('<li>').text(`${chat.sender}: ${chat.message}`));
+            });
+        </script>
