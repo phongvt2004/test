@@ -6,7 +6,7 @@ server.listen(8080)
 const path = require('path');
 const cors = require('cors');
 const handlebars = require('express-handlebars');
-const port = 8080;
+const port = process.env.PORT || 8080;
 const ChatController = require('./app/controllers/ChatController')
 
 app.use('/api', cors())
