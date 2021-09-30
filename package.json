@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/phongvt2004/khkt21#readme",
   "dependencies": {
+    "axios": "^0.21.4",
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",

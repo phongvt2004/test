@@ -7,7 +7,6 @@ class GroupController {
             .then((group) => {res.json(group)})
     }
     getGroupList(groupIds) {
-        console.log(groupIds)
         if(groupIds == 'all' || !groupIds) {
             return Groups.find()
         } else {
@@ -57,9 +56,25 @@ class GroupController {
     }
 
     deleteGroup(req, res, next) {
-        Groups.deleteOne({_id: req.params.id})
-            .then(res.json({success: true}))
-            .catch(next)
+        Promise.all([Groups.deleteOne({_id: req.params.groupId}), Users.find({})])
+            .then(([group, users]) => {
+                if(typeof users != 'object') {
+                    users = [users]
+                }
+                let usersInGroup = users.filter((user) => {
+                    return user.groupIds.includes(req.params.groupId)
+                })
+
+                (async function removeGroupId() {
+                    for( let user of usersInGroup) {
+                        user.groupIds.splice(user.groupIds.indexOf(req.params.groupId), 1)
+                        await Users.updateOne({_id: user._id}, user)
+                        let newUser = await Users.findOne({_id: user._id})
+                        newUser.then(user => console.log(user))
+                    }
+                    res.json(group)
+                })()
+            })
     }
 }
 

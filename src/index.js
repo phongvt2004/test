@@ -9,7 +9,10 @@ const handlebars = require('express-handlebars');
 const port = 8080;
 const ChatController = require('./app/controllers/ChatController')
 
-app.use('/api', cors())
+
+app.use('/', cors())
+
+
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
